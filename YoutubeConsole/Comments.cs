@@ -6,6 +6,6 @@ namespace YoutubeConsole
 {
     class Comments
     {
-
+        public string Title { get; set; }
     }
 }
