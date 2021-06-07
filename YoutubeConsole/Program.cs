@@ -32,6 +32,14 @@ namespace YoutubeConsole
                         break;
                     case 2:
                         Console.WriteLine("suchen");
+                        String title = Console.ReadLine();
+                        List<Video> videos2 = dao.searchVideos(title);
+
+                        foreach (Video video in videos2)
+                        {
+                            Console.WriteLine(video.title + " - " + video.description);
+                        }
+
                         break;
                     default:
                         break;

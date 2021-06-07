@@ -27,5 +27,23 @@ namespace YoutubeConsole
 
             return videos;
         }
+
+        public List<Video> searchVideos(string title)
+        {
+            MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase db = dbClient.GetDatabase("youtube");
+            var vids = db.GetCollection<BsonDocument>("videos");
+            var documents = vids.Find(Builders<BsonDocument>.Filter.Eq("title", title)).ToList();
+            List<Video> videos = new List<Video>();
+            foreach (BsonDocument doc in documents)
+            {
+                //Console.WriteLine(doc.ToString());
+                Video v = new Video(doc["title"].ToString(), doc["description"].ToString());
+                videos.Add(v);
+            }
+
+
+            return videos;
+        }
     }
 }
