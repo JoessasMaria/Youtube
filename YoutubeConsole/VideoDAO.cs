@@ -23,8 +23,6 @@ namespace YoutubeConsole
                 Video v = new Video(doc["title"].ToString(), doc["description"].ToString());
                 videos.Add(v);
             }
-
-
             return videos;
         }
 
@@ -33,13 +31,24 @@ namespace YoutubeConsole
             MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase db = dbClient.GetDatabase("youtube");
             var vids = db.GetCollection<BsonDocument>("videos");
-            var documents = vids.Find(Builders<BsonDocument>.Filter.Eq("title", title)).ToList();
+
+            FilterDefinition<BsonDocument> filter = "{ title : /"+title+"/}";
+            var documents = vids.Find(filter).ToList();
+
             List<Video> videos = new List<Video>();
-            foreach (BsonDocument doc in documents)
+
+            if (documents.Count > 0)
             {
-                //Console.WriteLine(doc.ToString());
-                Video v = new Video(doc["title"].ToString(), doc["description"].ToString());
-                videos.Add(v);
+                foreach (BsonDocument doc in documents)
+                {
+                    //Console.WriteLine(doc.ToString());
+                    Video v = new Video(doc["title"].ToString(), doc["description"].ToString());
+                    videos.Add(v);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Dieser Titel konnte nicht gefunden werden!");
             }
 
 
