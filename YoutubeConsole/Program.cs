@@ -8,42 +8,55 @@ namespace YoutubeConsole
         static void Main(string[] args)
         {
             VideoDAO dao = new VideoDAO();
-            Console.WriteLine("------------------");
-            Console.WriteLine("menu");
-            Console.WriteLine("1 Alle anzeigen");
-            Console.WriteLine("2 Suchen");
-            Console.WriteLine("------------------");
+            menu();
 
             while (true)
             {
-                
-                int selection = Convert.ToInt32(Console.ReadLine());
-                switch (selection)
+                try
                 {
-                    case 1:
-                        Console.WriteLine("alle anzeigen");
-                        List<Video> videos = dao.getAllVideos();
+                    int selection = Convert.ToInt32(Console.ReadLine());
+                    switch (selection)
+                    {
+                        case 1:
+                            Console.WriteLine("alle anzeigen");
+                            List<Video> videos = dao.getAllVideos();
 
-                        foreach (Video video in videos)
-                        {
-                            Console.WriteLine(video.title + " - " + video.description);
-                        }
+                            foreach (Video video in videos)
+                            {
+                                Console.WriteLine(video.title + " - " + video.description);
+                            }
 
-                        break;
-                    case 2:
-                        Console.WriteLine("suchen");
-                        String title = Console.ReadLine();
-                        List<Video> videos2 = dao.searchVideos(title);
+                            break;
+                        case 2:
+                            Console.WriteLine("suchen");
+                            String title = Console.ReadLine();
+                            List<Video> videos2 = dao.searchVideos(title);
 
-                        foreach (Video video in videos2)
-                        {
-                            Console.WriteLine(video.title + " - " + video.description);
-                        }
+                            foreach (Video video in videos2)
+                            {
+                                Console.WriteLine(video.title + " - " + video.description);
+                            }
 
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                catch (Exception)
+                {
+                    Console.WriteLine("----- Fehler bei der Eingabe -----");
+                    menu();
+                }
+               
+            }
+
+            void menu()
+            {
+                Console.WriteLine("------------------");
+                Console.WriteLine("menu");
+                Console.WriteLine("1 Alle anzeigen");
+                Console.WriteLine("2 Suchen");
+                Console.WriteLine("------------------");
             }
         }
     }
