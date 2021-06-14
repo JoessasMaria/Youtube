@@ -15,6 +15,8 @@ namespace YoutubeConsole
                 try
                 {
                     int selection = Convert.ToInt32(Console.ReadLine());
+                    string title;
+                    string description;
                     switch (selection)
                     {
                         case 1:
@@ -29,7 +31,7 @@ namespace YoutubeConsole
                             break;
                         case 2:
                             Console.WriteLine("suchen");
-                            String title = Console.ReadLine();
+                            title = Console.ReadLine();
                             List<Video> videos2 = dao.searchVideos(title);
 
                             foreach (Video video in videos2)
@@ -37,6 +39,13 @@ namespace YoutubeConsole
                                 Console.WriteLine(video.title + " - " + video.description);
                             }
 
+                            break;
+                        case 3:
+                            Console.WriteLine("einfügen");
+                            title = Console.ReadLine();
+                            description = Console.ReadLine();
+
+                            dao.insertVideo(title, description);
                             break;
                         default:
                             break;
@@ -56,6 +65,7 @@ namespace YoutubeConsole
                 Console.WriteLine("menu");
                 Console.WriteLine("1 Alle anzeigen");
                 Console.WriteLine("2 Suchen");
+                Console.WriteLine("3 Einfügen");
                 Console.WriteLine("------------------");
             }
         }

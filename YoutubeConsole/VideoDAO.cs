@@ -32,7 +32,7 @@ namespace YoutubeConsole
             IMongoDatabase db = dbClient.GetDatabase("youtube");
             var vids = db.GetCollection<BsonDocument>("videos");
 
-            FilterDefinition<BsonDocument> filter = "{ title : /"+title+"/}";
+            FilterDefinition<BsonDocument> filter = "{ title : /" + title + "/}";
 
             var documents = vids.Find(filter).ToList();
 
@@ -53,6 +53,28 @@ namespace YoutubeConsole
             }
 
             return videos;
+        }
+
+        public void insertVideo(string title, string description)
+        {
+            MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase db = dbClient.GetDatabase("youtube");
+            var vids = db.GetCollection<BsonDocument>("videos");
+            var document = new BsonDocument { 
+                { "title", title}, 
+                { "description", description }
+            };
+            try
+            {
+                vids.InsertOne(document);
+                Console.WriteLine("Das Video wurde erfolgreich hinzugefügt!");
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("Das Video konnte nicht hinzugefügt werden!");
+            }
+            
         }
     }
 }
