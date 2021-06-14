@@ -48,6 +48,12 @@ namespace YoutubeConsole
 
                             dao.insertVideo(title, description);
                             break;
+                        case 4:
+                            Console.WriteLine("Geben Sie den Titel des Videos ein:");
+                            title = Console.ReadLine();
+
+                            dao.deleteVideo(title);
+                            break;
                         default:
                             break;
                     }
@@ -67,6 +73,7 @@ namespace YoutubeConsole
                 Console.WriteLine("1 Alle anzeigen");
                 Console.WriteLine("2 Suchen");
                 Console.WriteLine("3 Einfügen");
+                Console.WriteLine("4 Löschen");
                 Console.WriteLine("------------------");
             }
         }

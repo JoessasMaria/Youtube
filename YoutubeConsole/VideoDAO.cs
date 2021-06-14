@@ -76,5 +76,23 @@ namespace YoutubeConsole
             }
             
         }
+
+        public void deleteVideo(string title)
+        {
+            MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase db = dbClient.GetDatabase("youtube");
+            var vids = db.GetCollection<BsonDocument>("videos");
+
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("title", title);
+            try
+            {
+                vids.DeleteOne(deleteFilter);
+                Console.WriteLine("Das Video wurde erfolgreich gelöscht!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Das Video konnte nicht gelöscht werden!");
+            }
+        }
     }
 }
