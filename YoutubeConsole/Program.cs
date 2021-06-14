@@ -20,7 +20,6 @@ namespace YoutubeConsole
                     switch (selection)
                     {
                         case 1:
-                            Console.WriteLine("alle anzeigen");
                             List<Video> videos = dao.getAllVideos();
 
                             foreach (Video video in videos)
@@ -30,7 +29,6 @@ namespace YoutubeConsole
 
                             break;
                         case 2:
-                            Console.WriteLine("suchen");
                             Console.WriteLine("Geben Sie den Titel ein, nachdem Sie suchen wollen:");
                             title = Console.ReadLine();
                             List<Video> videos2 = dao.searchVideos(title);
@@ -42,8 +40,6 @@ namespace YoutubeConsole
 
                             break;
                         case 3:
-                            Console.WriteLine("einfügen");
-                            
                             Console.WriteLine("Geben Sie den Titel des Videos ein:");
                             title = Console.ReadLine();
 
