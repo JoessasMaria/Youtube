@@ -43,13 +43,6 @@ namespace YoutubeConsole
                             break;
                         case 3:
                             Console.WriteLine("einfügen");
-                            title = Console.ReadLine();
-                            description = Console.ReadLine();
-
-                            dao.insertVideo(title, description);
-                            break;
-                        case 3:
-                            Console.WriteLine("einfügen");
                             
                             Console.WriteLine("Geben Sie den Titel des Videos ein:");
                             title = Console.ReadLine();
