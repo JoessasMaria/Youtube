@@ -54,12 +54,16 @@ namespace YoutubeConsole
 
                             dao.deleteVideo(title);
                             break;
+                        case 999:
+                            dao.insertRandomVideo(100000);
+                            break;
                         default:
                             break;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     Console.WriteLine("----- Fehler bei der Eingabe -----");
                     menu();
                 }

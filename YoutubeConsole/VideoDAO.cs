@@ -2,7 +2,9 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace YoutubeConsole
 {
@@ -94,5 +96,39 @@ namespace YoutubeConsole
                 Console.WriteLine("Das Video konnte nicht gelöscht werden!");
             }
         }
+
+        public void insertRandomVideo(int amount)
+        {
+            MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase db = dbClient.GetDatabase("youtube");
+            var vids = db.GetCollection<BsonDocument>("videos");
+
+            string[] titles = File.ReadAllLines("Videos.txt");
+            string[] descriptions = File.ReadAllLines("Description.txt");
+            Random rnd = new Random();
+            for (int i = 0; i < amount; i++)
+            {
+                string title = titles[rnd.Next(0, titles.Length)] + " " +rnd.Next(0,999);
+                string description = descriptions[rnd.Next(0, descriptions.Length)];
+
+                var document = new BsonDocument {
+                    { "title", title},
+                    { "description", description}
+                };
+                try
+                {
+                    vids.InsertOne(document);
+                    Console.WriteLine("Das Video "+ title + " - "+ description +" wurde erfolgreich hinzugefügt!");
+                }
+                catch (Exception)
+                {
+
+                    Console.WriteLine("Das Video konnte nicht hinzugefügt werden!");
+                }
+                Thread.Sleep(5);
+            }
+            
+        }
+
     }
 }
