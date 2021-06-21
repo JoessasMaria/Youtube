@@ -63,7 +63,6 @@ namespace YoutubeConsole
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
                     Console.WriteLine("----- Fehler bei der Eingabe -----");
                     menu();
                 }
